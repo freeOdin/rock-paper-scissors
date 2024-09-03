@@ -17,7 +17,7 @@ function getHumanChoice () {
   const validChoices = ["rock", "paper", "scissors"];
 
   while (keepAsking) {
-    input = prompt("Choose rock, paper or scissors");
+    input = prompt("Choose rock, paper or scissors").toLowerCase();
 
     if (validChoices.includes(input)) {
       keepAsking = false;
@@ -27,4 +27,23 @@ function getHumanChoice () {
   return input
 }
 
-console.log(getHumanChoice())
+function playRound (humanChoice, computerChoice) {
+  humanWins = (humanChoice == "rock" && computerChoice == "scissors") ||
+              (humanChoice == "paper" && computerChoice == "rock") ||
+              (humanChoice == "scissors" && computerChoice == "paper")
+
+  if (humanWins) {
+    console.log("You win! " + humanChoice + " beats " + computerChoice + ".");
+    humanScore += 1;
+  } else {
+    console.log("You lose! " + humanChoice + " loses to " + computerChoice + ".")
+    computerScore += 1;
+  }
+}
+
+let humanScore = 0;
+let computerScore = 0;
+
+playRound(getHumanChoice(), getComputerChoice());
+
+
