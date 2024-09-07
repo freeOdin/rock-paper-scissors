@@ -9,26 +9,11 @@ function getComputerChoice () {
     return "Scissors";
   }
 }
- 
-function getHumanChoice () {
-  let input = "";
-  let keepAsking = true; 
 
-  const validChoices = ["Rock", "Paper", "Scissors"];
+function playRound () {
+  // let humanChoice = "Rock";
+  let computerChoice = getComputerChoice();
 
-  while (keepAsking) {
-    input = prompt("Choose rock, paper or scissors").toLowerCase();
-    input = input.charAt(0).toUpperCase() + input.slice(1);
-
-    if (validChoices.includes(input)) {
-      keepAsking = false;
-    };
-  }
-
-  return input
-}
-
-function playRound (humanChoice, computerChoice) {
   humanWins = (humanChoice == "Rock" && computerChoice == "Scissors") ||
               (humanChoice == "Paper" && computerChoice == "Rock") ||
               (humanChoice == "Scissors" && computerChoice == "Paper")
@@ -48,16 +33,16 @@ function playRound (humanChoice, computerChoice) {
   }
 }
 
-
 function playGame () {
-  for (let round = 1; round <= 5; round ++) {
-    playRound(getHumanChoice(), getComputerChoice());
-  }
-
+  playRound(getHumanChoice(), getComputerChoice());
   console.log("Your score: " + humanScore + ". Computer score: " + computerScore)
 }
 
 let humanScore = 0;
 let computerScore = 0;
 
-playGame();
+let button = document.querySelector("button");
+let humanChoice = button.textContent;
+button.addEventListener("click", playRound);
+
+
