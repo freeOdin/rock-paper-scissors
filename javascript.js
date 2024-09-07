@@ -10,39 +10,50 @@ function getComputerChoice () {
   }
 }
 
-function playRound () {
-  // let humanChoice = "Rock";
-  let computerChoice = getComputerChoice();
+funcName = () => {
+
+}
+
+function playRound (event) {
+  const humanChoice = event.currentTarget.textContent;
+  const computerChoice = getComputerChoice();
 
   humanWins = (humanChoice == "Rock" && computerChoice == "Scissors") ||
               (humanChoice == "Paper" && computerChoice == "Rock") ||
-              (humanChoice == "Scissors" && computerChoice == "Paper")
+              (humanChoice == "Scissors" && computerChoice == "Paper");
 
   computerWins = (computerChoice == "Rock" && humanChoice == "Scissors") ||
                 (computerChoice == "Paper" && humanChoice == "Rock") ||
-                (computerChoice == "Scissors" && humanChoice == "Paper")
+                (computerChoice == "Scissors" && humanChoice == "Paper");
 
   if (humanWins) {
-    console.log("You win! " + humanChoice + " beats " + computerChoice + ".");
+    message.textContent = "You win! " + humanChoice + " beats " + computerChoice + ".";
     humanScore += 1;
   } else if (computerWins) {
-    console.log("You lose! " + humanChoice + " loses to " + computerChoice + ".")
+    message.textContent = "You lose! " + humanChoice + " loses to " + computerChoice + ".";
     computerScore += 1;
   } else {
-    console.log("It's a tie! You both have " + humanChoice + ". Try again.")
+    message.textContent = "It's a tie! You both have " + humanChoice + ". Try again.";
   }
-}
 
-function playGame () {
-  playRound(getHumanChoice(), getComputerChoice());
-  console.log("Your score: " + humanScore + ". Computer score: " + computerScore)
+  score.textContent = "Your score: " + humanScore + ". Computer score: " + computerScore;
+
+  if (humanScore == 5) {
+    result.textContent = "You've won the game!";
+  } else if (computerScore == 5) {
+    result.textContent = "Sorry, you've lost the game...";
+  }
 }
 
 let humanScore = 0;
 let computerScore = 0;
 
-let button = document.querySelector("button");
-let humanChoice = button.textContent;
-button.addEventListener("click", playRound);
+const buttons = document.querySelectorAll("button");
 
+for (const button of buttons) {
+  button.addEventListener("click", playRound);
+}
 
+message = document.querySelector("#message");
+score = document.querySelector("#score");
+result = document.querySelector("#result");
